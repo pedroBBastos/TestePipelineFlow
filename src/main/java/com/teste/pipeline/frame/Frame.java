@@ -2,8 +2,8 @@ package com.teste.pipeline.frame;
 
 public class Frame implements ComparableFrame {
     private String frameContent;
-    private boolean isLastFrame;
-    private long sequenceNumber;
+    private final boolean isLastFrame;
+    private final long sequenceNumber;
     private Integer layerSize;
 
     public Frame(String frameContent, long sequenceNumber,
@@ -48,7 +48,7 @@ public class Frame implements ComparableFrame {
 
     @Override
     public Void decreaseLayerSize() {
-        synchronized (this) {
+        synchronized (this) { // varias threads vão dar decrease nesse cara, é sempre bom proteger
             layerSize--;
         }
         return null;
