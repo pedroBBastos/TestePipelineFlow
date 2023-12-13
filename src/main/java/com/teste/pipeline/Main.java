@@ -35,7 +35,7 @@ public class Main {
             Frame newFrame = new Frame("teste-"+i, i, false);
             entranceQueue.put(newFrame);
         }
-        entranceQueue.insertLastObject(1,
+        entranceQueue.insertLastObject(l1Size,
             ComparableFrame::isLastFrame,
             ComparableFrame::decreaseLayerSize,
             Frame::createLastFrameWithLayerSize);

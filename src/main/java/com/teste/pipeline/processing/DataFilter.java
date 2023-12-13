@@ -43,20 +43,12 @@ public class DataFilter {
                 {
                     ComparableFrame processedFrame = frameProcessor.processFrame( (Frame) inputFrame );
 
-                    if (id.equals("L1-0")) {
-                        System.out.println("L1-0: content -> " + ((Frame) inputFrame).getFrameContent());
-                    }
-
                     if (outDataQueue != null) {
                         outDataQueue.put( processedFrame );
                     } else {
                         System.out.println("Fimm "+id+" -> " + ((Frame) inputFrame).getFrameContent());
                     }
                 } else if (inputFrame.isLastFrameOfLayer()) {
-
-                    if (id.equals("L1-0")) {
-                        System.out.println("L1-0: content -> " + ((Frame) inputFrame).getFrameContent());
-                    }
 
                     if (outDataQueue != null) {
                         outDataQueue.insertLastObject(layerSize,
