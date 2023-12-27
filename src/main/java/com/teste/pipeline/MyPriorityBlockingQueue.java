@@ -204,6 +204,13 @@ public class MyPriorityBlockingQueue<E> extends AbstractQueue<E>
         this(DEFAULT_INITIAL_CAPACITY, null);
     }
 
+    private String queueName;
+
+    public MyPriorityBlockingQueue(String queueName) {
+        this(100);
+        this.queueName = queueName;
+    }
+
     /**
      * Creates a {@code PriorityBlockingQueue} with the specified
      * initial capacity that orders its elements according to their
@@ -1133,5 +1140,9 @@ public class MyPriorityBlockingQueue<E> extends AbstractQueue<E>
             lock.unlock();
         }
         return true;
+    }
+
+    public String getQueueName() {
+        return queueName;
     }
 }

@@ -38,15 +38,16 @@ public class DataFilter {
         while ( isActive ) {
             try {
                 ComparableFrame inputFrame = inDataQueue.extractIfOrCopy( frame -> !frame.isLastFrame() );
+                System.out.println("Extracted frame '" + ((Frame) inputFrame).getFrameContent() + "' from '" + inDataQueue.getQueueName() +
+                    "' queue");
 
-                if (!inputFrame.isLastFrame())
-                {
+                if (!inputFrame.isLastFrame()) {
                     ComparableFrame processedFrame = frameProcessor.processFrame( (Frame) inputFrame );
 
                     if (outDataQueue != null) {
                         outDataQueue.put( processedFrame );
                     } else {
-                        System.out.println("Fimm "+id+" -> " + ((Frame) inputFrame).getFrameContent());
+                        System.out.println("Fimm 1 (not a LastFrame) "+id+" -> " + ((Frame) inputFrame).getFrameContent());
                     }
                 } else if (inputFrame.isLastFrameOfLayer()) {
 
@@ -56,13 +57,9 @@ public class DataFilter {
                             ComparableFrame::decreaseLayerSize,
                             Frame::createLastFrameWithLayerSize);
                     } else {
-                        System.out.println("Fimm "+id+" -> " + ((Frame) inputFrame).getFrameContent());
+                        System.out.println("Fimm 2 (isLastFrameOfLayer) "+id+" -> " + ((Frame) inputFrame).getFrameContent());
                     }
                     isActive = false;
-                } else {
-                    // faltou isso aqui no código original.... se for o último e ainda tem mais do layer anterior
-                    // para receber tenho que decrementar a contagem....
-                    inputFrame.decreaseLayerSize();
                 }
             } catch ( InterruptedException e ) {
                 logger.error("Deu ruim...", e);

@@ -12,17 +12,17 @@ public class Main {
     public static void main(String[] args) {
         System.out.println("Hello world!");
 
-        MyPriorityBlockingQueue<ComparableFrame> entranceQueue = new MyPriorityBlockingQueue<>(100);
-        MyPriorityBlockingQueue<ComparableFrame> middleQueue = new MyPriorityBlockingQueue<>(100);
+        MyPriorityBlockingQueue<ComparableFrame> entranceQueue = new MyPriorityBlockingQueue<>("entranceQueue");
+        MyPriorityBlockingQueue<ComparableFrame> middleQueue = new MyPriorityBlockingQueue<>("middleQueue");
 
         List<DataFilter> engineDataFilters = new ArrayList<>();
 
-        int l1Size = 4;
+        int l1Size = 10;
         for (int i=0; i<l1Size; i++) {
             engineDataFilters.add(createL1DataFilters(entranceQueue, middleQueue, l1Size, i+""));
         }
 
-        int l2Size = 10;
+        int l2Size = 4;
         for (int i=0; i<l2Size; i++) {
             engineDataFilters.add(createL2DataFilters(middleQueue, null, l2Size, i+""));
         }
@@ -35,7 +35,7 @@ public class Main {
             Frame newFrame = new Frame("teste-"+i, i, false);
             entranceQueue.put(newFrame);
         }
-        entranceQueue.insertLastObject(l1Size,
+        entranceQueue.insertLastObject(1,
             ComparableFrame::isLastFrame,
             ComparableFrame::decreaseLayerSize,
             Frame::createLastFrameWithLayerSize);
